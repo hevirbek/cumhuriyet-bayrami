@@ -35,25 +35,29 @@ flag_image = Image.open('bayrak.jpg')
 back_file = st.file_uploader("Arka yüz")
 
 if back_file is not None:
-    back_image = Image.open(back_file)
+    # check if it is not an image
+    if not back_file.type.startswith('image/'):
+        st.error('Lütfen bir resim dosyası seçin.')
+    else:
+        back_image = Image.open(back_file)
 
-    # prepare red image with size of your_image and opacity of 0.5
-    red_image = Image.new("RGBA", back_image.size, (228, 0, 0, 128))
+        # prepare red image with size of your_image and opacity of 0.5
+        red_image = Image.new("RGBA", back_image.size, (228, 0, 0, 128))
 
-    # paste the your_image to red_image
-    back_image.paste(red_image, (0, 0), red_image)
+        # paste the your_image to red_image
+        back_image.paste(red_image, (0, 0), red_image)
 
-    new_image = paste_image_to_center(back_image, flag_image)
+        new_image = paste_image_to_center(back_image, flag_image)
 
-    # new_image to bytes
-    new_image_bytes = BytesIO()
-    new_image.save(new_image_bytes, format='PNG')
+        # new_image to bytes
+        new_image_bytes = BytesIO()
+        new_image.save(new_image_bytes, format='PNG')
 
-    st.download_button(
-        label="İndir",
-        data=new_image_bytes,
-        file_name="29ekim.png",
-        mime="image/png",
-    )
+        st.download_button(
+            label="İndir",
+            data=new_image_bytes,
+            file_name="29ekim.png",
+            mime="image/png",
+        )
 
-    st.image(new_image, use_column_width=True)
+        st.image(new_image, use_column_width=True)
