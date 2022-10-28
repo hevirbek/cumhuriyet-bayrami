@@ -32,7 +32,7 @@ def paste_image_to_center(image1, image2):
 flag_image = Image.open('bayrak.jpg')
 
 
-back_file = st.file_uploader("Arka yüz")
+back_file = st.file_uploader("Fotoğraf")
 
 if back_file is not None:
     # check if it is not an image
